@@ -92,7 +92,7 @@ runs:
     - name: Setup Python 
       uses: actions/setup-python@v5
       with:
-          python-version: 3.8
+          python-version: 3.10
 
     - name: Provision environment
       shell: bash
@@ -249,7 +249,13 @@ runs:
 
         indexSampleData=$([ -z "$LOAD_AZURE_SEARCH_SAMPLE_DATA" ] || [ "$LOAD_AZURE_SEARCH_SAMPLE_DATA" == "true" ] && echo true || echo false)
         if [ $indexSampleData = "true" ]; then
-          echo "🔶 | Running post-provisioning script to populate sample data." 
+          echo "🔶 | Running post-provisioning script to populate sample data."
+          
+          AZURE_CREDENTIALS=$(echo '${{ inputs.AZURE_CREDENTIALS }}' | jq -r .)
+          echo "🤞 $CLIENT_ID"
+          CLIENT_ID=$(echo $AZURE_CREDENTIALS | jq -r .clientId)
+          CLIENT_SECRET=$(echo $AZURE_CREDENTIALS | jq -r .clientSecret)
+          echo "🤞 $CLIENT_ID"
           ./infra/hooks/postprovision.sh 
         fi
 
