@@ -224,7 +224,9 @@ runs:
           # Previous deployment exists. Update provisioned resources in case template has changed.
           if [  "$deployment_exists" = true ]; then
             echo "🔶 | Previous deployment exists. Updating provisioned resources in case template has changed..."
-            azd provision --no-prompt
+            echo "🤞 principal id:"
+            azd env get-value AZURE_PRINCIPAL_ID
+            azd provision --no-prompt --debug
           fi
         fi
 
