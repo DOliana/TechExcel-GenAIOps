@@ -226,7 +226,7 @@ runs:
             echo "🔶 | Previous deployment exists. Updating provisioned resources in case template has changed..."
             echo "🤞 principal id:"
             azd env get-value AZURE_PRINCIPAL_ID
-            azd provision --no-prompt --debug
+            azd provision --no-prompt
           fi
         fi
 
