@@ -255,8 +255,9 @@ runs:
           echo "🤞CLIENT_ID"
           echo "🤞 $CLIENT_ID"
           echo "🤞 $CLIENT_SECRET"
-          export CLIENT_ID=$(echo $AZURE_CREDENTIALS | jq -r .clientId)
-          export CLIENT_SECRET=$(echo $AZURE_CREDENTIALS | jq -r .clientSecret)
+          export AZURE_CLIENT_ID=$(echo $AZURE_CREDENTIALS | jq -r .clientId)
+          export AZURE_CLIENT_SECRET=$(echo $AZURE_CREDENTIALS | jq -r .clientSecret)
+          export AZURE_TENANT_ID=$(echo $AZURE_CREDENTIALS | jq -r .tenantId)
           echo "🤞 $CLIENT_ID"
           echo "🤞 $CLIENT_SECRET"
           ./infra/hooks/postprovision.sh 
