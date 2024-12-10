@@ -156,8 +156,6 @@ runs:
           fi
         
           # Checking if previous deployment exists
-          echo "😎 set principal type to serviceprincipal"
-          azd env set AZURE_PRINCIPAL_TYPE 'ServicePrincipal'
           if [  "$deployment_exists" = false ]; then
             echo "Provisioning environment..." 
             azd env set AZURE_PRINCIPAL_TYPE 'ServicePrincipal'
@@ -224,6 +222,8 @@ runs:
           # Previous deployment exists. Update provisioned resources in case template has changed.
           if [  "$deployment_exists" = true ]; then
             echo "🔶 | Previous deployment exists. Updating provisioned resources in case template has changed..."
+            echo "😎 set principal type to serviceprincipal"
+            azd env set AZURE_PRINCIPAL_TYPE 'ServicePrincipal'
             azd provision --no-prompt
           fi
         fi
