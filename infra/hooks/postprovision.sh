@@ -7,6 +7,8 @@ function error_exit {
 }
 
 echo "🔶 | Post-provisioning - starting script"
+echo "🤞 $CLIENT_ID"
+echo "🤞 $CLIENT_SECRET"
 
 # Function to check azd authentication status
 function check_azd_auth {
@@ -94,8 +96,6 @@ echo "📦 | Dependencies installed successfully."
 
 # Populate sample data
 echo "📊 | Populating sample data..."
-echo "🤞 $CLIENT_ID"
-echo "🤞 $CLIENT_SECRET"
 export PYTHONPATH=./src:$PYTHONPATH
 if ! python data/sample-documents-indexing.py; then
     error_exit "Failed to populate sample data."
