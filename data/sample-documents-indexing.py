@@ -116,6 +116,7 @@ def gen_documents(path: str) -> List[Dict[str, any]]:
 
     print("api version: " + azure_config.aoai_api_version)
     print("endpoint: " + azure_config.aoai_endpoint)
+    print("token: " + token_provider.g)
 
     token_provider = get_bearer_token_provider(DefaultAzureCredential(), "https://cognitiveservices.azure.com/.default")
     client = AzureOpenAI(
