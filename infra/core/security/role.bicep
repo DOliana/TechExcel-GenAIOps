@@ -11,11 +11,7 @@ param principalId string
 param principalType string = 'ServicePrincipal'
 param roleDefinitionId string
 
-resource existingRole 'Microsoft.Authorization/roleAssignments@2022-04-01' existing = {
-  name: guid(subscription().id, resourceGroup().id, principalId, roleDefinitionId)
-}
-
-resource role 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (existingRole == null) {
+resource role 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(subscription().id, resourceGroup().id, principalId, roleDefinitionId)
   properties: {
     principalId: principalId
