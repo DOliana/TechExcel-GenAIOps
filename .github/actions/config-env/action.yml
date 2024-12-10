@@ -252,10 +252,13 @@ runs:
           echo "🔶 | Running post-provisioning script to populate sample data."
           
           AZURE_CREDENTIALS=$(echo '${{ inputs.AZURE_CREDENTIALS }}' | jq -r .)
+          echo "🤞CLIENT_ID"
           echo "🤞 $CLIENT_ID"
+          echo "🤞 $CLIENT_SECRET"
           CLIENT_ID=$(echo $AZURE_CREDENTIALS | jq -r .clientId)
           CLIENT_SECRET=$(echo $AZURE_CREDENTIALS | jq -r .clientSecret)
           echo "🤞 $CLIENT_ID"
+          echo "🤞 $CLIENT_SECRET"
           ./infra/hooks/postprovision.sh 
         fi
 
