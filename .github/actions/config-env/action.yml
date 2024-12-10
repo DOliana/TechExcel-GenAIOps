@@ -140,6 +140,7 @@ runs:
           # Initialize azd
           export AZURE_SUBSCRIPTION_ID="${{ inputs.AZURE_SUBSCRIPTION_ID }}"
           export AZURE_LOCATION="${{ inputs.AZURE_LOCATION }}"
+          echo "🤞 using azd ${{ inputs.AZURE_ENV_NAME }} environment "
           azd init -e ${{ inputs.AZURE_ENV_NAME }} -l $AZURE_LOCATION -s $AZURE_SUBSCRIPTION_ID
 
           # Run azd env refresh and capture outputs
