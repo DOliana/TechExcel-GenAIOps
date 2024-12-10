@@ -160,7 +160,9 @@ runs:
           fi
         
           echo "🤞 azd environment variables after refresh:"
-          azd env get-values -e ${{ inputs.AZURE_ENV_NAME }}          
+          azd env get-values -e ${{ inputs.AZURE_ENV_NAME }}
+          echo "🤞 azd environment variables after second refresh:"
+          azd env refresh -e "${{ inputs.AZURE_ENV_NAME }}"
 
           # Checking if previous deployment exists
           if [ "$deployment_exists" = false ]; then
