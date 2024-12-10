@@ -144,7 +144,7 @@ runs:
           azd init -e ${{ inputs.AZURE_ENV_NAME }} -l $AZURE_LOCATION -s $AZURE_SUBSCRIPTION_ID
 
 
-          echo "🤞 azd environment variables:"
+          echo "🤞 azd environment variables before refresh:"
           azd env get-values -e ${{ inputs.AZURE_ENV_NAME }}
           # Run azd env refresh and capture outputs
           set +e
@@ -159,6 +159,9 @@ runs:
             deployment_exists=true
           fi
         
+          echo "🤞 azd environment variables after refresh:"
+          azd env get-values -e ${{ inputs.AZURE_ENV_NAME }}          
+
           # Checking if previous deployment exists
           if [ "$deployment_exists" = false ]; then
             echo "Provisioning environment..." 
