@@ -140,12 +140,8 @@ runs:
           # Initialize azd
           export AZURE_SUBSCRIPTION_ID="${{ inputs.AZURE_SUBSCRIPTION_ID }}"
           export AZURE_LOCATION="${{ inputs.AZURE_LOCATION }}"
-          echo "🤞 using azd environment '${{ inputs.AZURE_ENV_NAME }}'"
           azd init -e ${{ inputs.AZURE_ENV_NAME }} -l $AZURE_LOCATION -s $AZURE_SUBSCRIPTION_ID
 
-
-          echo "🤞 azd environment variables before refresh:"
-          azd env get-values -e ${{ inputs.AZURE_ENV_NAME }}
           # Run azd env refresh and capture outputs
           set +e
           output=$(azd env refresh -e "${{ inputs.AZURE_ENV_NAME }}" 2>&1)
@@ -159,15 +155,12 @@ runs:
             deployment_exists=true
           fi
         
-          echo "🤞 azd environment variables after refresh:"
-          azd env get-values -e ${{ inputs.AZURE_ENV_NAME }}
-          echo "🤞 azd environment variables after second refresh:"
-          azd env refresh -e "${{ inputs.AZURE_ENV_NAME }}"
+          # this is always a service principal when run from a pipeline
+          azd env set AZURE_PRINCIPAL_TYPE 'ServicePrincipal'
 
           # Checking if previous deployment exists
           if [ "$deployment_exists" = false ]; then
             echo "Provisioning environment..." 
-            azd env set AZURE_PRINCIPAL_TYPE 'ServicePrincipal'
             azd provision --no-prompt
           fi
 
@@ -231,8 +224,6 @@ runs:
           # Previous deployment exists. Update provisioned resources in case template has changed.
           if [  "$deployment_exists" = true ]; then
             echo "🔶 | Previous deployment exists. Updating provisioned resources in case template has changed..."
-            echo "😎 set principal type to serviceprincipal"
-            azd env set AZURE_PRINCIPAL_TYPE 'ServicePrincipal'
             azd provision --no-prompt
           fi
         fi
