@@ -114,10 +114,6 @@ def gen_documents(path: str) -> List[Dict[str, any]]:
     openai_service_endoint = azure_config.aoai_endpoint
     openai_deployment = "text-embedding-ada-002"
 
-    print("api version: " + azure_config.aoai_api_version)
-    print("endpoint: " + azure_config.aoai_endpoint)
-    print("token: " + token_provider.g)
-
     token_provider = get_bearer_token_provider(DefaultAzureCredential(), "https://cognitiveservices.azure.com/.default")
     client = AzureOpenAI(
         api_version=aoai_api_version,

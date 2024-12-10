@@ -7,8 +7,9 @@ function error_exit {
 }
 
 echo "🔶 | Post-provisioning - starting script"
-echo "🤞 $CLIENT_ID"
-echo "🤞 $CLIENT_SECRET"
+echo "🤞 $AZURE_CLIENT_ID"
+echo "🤞 $AZURE_CLIENT_SECRET"
+echo "🤞 $AZURE_TENANT_ID"
 
 # Function to check azd authentication status
 function check_azd_auth {
